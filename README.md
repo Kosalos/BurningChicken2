@@ -15,4 +15,4 @@ It is very easy and efficient to develop with, \
 and makes good use of little space on the screen. \
 Hope you like it!
 
-![Screenshot](screenShot.png)
+![Screenshot](screenshot.png)
