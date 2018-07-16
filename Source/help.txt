@@ -1,0 +1,69 @@
+Burning Chicken2
+
+Just like the Burning Ship fractal,
+this is just one step removed from the Mandelbrot set.
+
+The panel on the left holds two kinds of controls:
+buttons, and one or two dimensional widgets.
+
+Widgets:
+Slide your finger up and down the list to select
+the desired widget.  Its' legend will turn Green.
+
+Now on the image,
+slider your finger to control the widget's parameters.
+
+Double tap on a widget legend to toggle it between
+fast and slow editing.  Red graph background = slow.
+
+Buttons:
+The button command is performed by selecting the
+legend, then releasing your finger.
+
+Note: Pinch the image to control zoom.
+Note: Use 2 finger Pan to 'Move' the image at any time
+
+A. Reset
+   Reset the image position, zoom and params.
+
+B. Save/Load
+   Launch the Save/Load dialog.
+
+C. Load Next
+   Load the next already saved image (round-robin).
+
+D. Help
+   This dialog.
+
+E. maxIter
+   Specify the number of interations the shader uses.
+
+F. Contrast
+   Adjust the RGB deviations from midpoint.
+
+G. Skip
+   Number of cycles before each pixel counts as 'visible'
+
+H. Chicken
+   Render the normal Mandelbrot set, or the slightly
+   altered code to produce the Burning Chicken fractal.
+
+I. Shadow
+   Toggle whether shadowing effect is added.
+
+J. Coloring
+   Toggle color method: traditional color palette lookup,
+   or average Coloring algorithm.
+
+   Visit: https://fractalforums.org/fractal-mathematics-and-new-theories/28/triangle-inequality-average-algorithm/1368
+   User 3DickUlus posted a beautiful image with the fragment shader attached.
+   I copied the algorithm onto this app to do some
+   experimentation.
+
+K. Stripe Density
+L. Escape Radius
+M. Multiplier    are all params to 3DickUlus' algorithm. Check out shader code..
+
+N. Color R,G,B
+   Affect the color balance.
+
