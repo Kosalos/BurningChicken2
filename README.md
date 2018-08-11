@@ -17,7 +17,7 @@ Hope you like it!
 
 ---------------------------------------\
 So much to learn!\
-Please visit: http://www.iquilezles.org/www/articles/ftrapsgeometric/ftrapsgeometric.htm\
+Please visit: http://www.iquilezles.org/www/articles/ftrapsgeometric/ftrapsgeometric.htm \
 to read about Point and Line Orbit Traps.
 
 I added three Point and Line Orbit Traps to the Control Panel. \
