@@ -15,4 +15,13 @@ It is very easy and efficient to develop with, \
 and makes good use of little space on the screen. \
 Hope you like it!
 
+---------------------------------------\
+So much to learn!\
+Please visit: http://www.iquilezles.org/www/articles/ftrapsgeometric/ftrapsgeometric.htm\
+to read about Point and Line Orbit Traps.
+
+I added three Point and Line Orbit Traps to the Control Panel.\
+It's a great effect!
+---------------------------------------
+
 ![Screenshot](screenshot.png)
