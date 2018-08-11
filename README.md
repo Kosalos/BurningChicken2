@@ -20,8 +20,7 @@ So much to learn!\
 Please visit: http://www.iquilezles.org/www/articles/ftrapsgeometric/ftrapsgeometric.htm\
 to read about Point and Line Orbit Traps.
 
-I added three Point and Line Orbit Traps to the Control Panel.\
+I added three Point and Line Orbit Traps to the Control Panel. \
 It's a great effect!
----------------------------------------
 
 ![Screenshot](screenshot.png)
