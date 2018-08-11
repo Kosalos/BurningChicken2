@@ -1,3 +1,6 @@
+// for info on Point and Line orbit traps visit:
+// http://www.iquilezles.org/www/articles/ftrapsgeometric/ftrapsgeometric.htm
+
 #include <metal_stdlib>
 #import "ShaderTypes.h"
 
@@ -24,11 +27,12 @@ kernel void fractalShader
     float count = 0;
     float2 z = float2();
     float z2 = 0;
+    float minDist = 999;
 
     for(iter = 0;iter < maxIter;++iter) {
         z = complexMul(z,z) + c;
         
-        if(iter >= skip) {
+        if(control.coloringFlag && (iter >= skip)) {
             count += 1;
             lastAdded = 0.5 + 0.5 * sin(control.stripeDensity * atan2(z.y, z.x));
             avg += lastAdded;
@@ -36,6 +40,24 @@ kernel void fractalShader
 
         if(control.chickenFlag && z.y < 0) { z.y = -z.y; }
 
+        // point,line orbit traps ------------------------------------------
+        for(int i=0;i<3;++i) {
+            if(control.pTrap[i].active) {
+                float dist = length(z - float2(control.pTrap[i].x,control.pTrap[i].y));
+                minDist = min(minDist, dist * dist);
+            }
+            if(control.lTrap[i].active) {
+                float A = z.x - control.lTrap[i].x;
+                float B = z.y - control.lTrap[i].y;
+                float C = 1;  // x2 - x1
+                float D = control.lTrap[i].slope; // y2 - y1
+                float dist = abs(A * D - C * B) / sqrt(C * C + D * D);
+                
+                minDist = min(minDist, dist * dist);
+            }
+        }
+        // -----------------------------------------------------------------
+        
         z2 = dot(z,z);
         if (z2 > control.escapeRadius && iter > skip) break;
     }
@@ -43,11 +65,13 @@ kernel void fractalShader
     float3 icolor = float3();
 
     if(control.coloringFlag) {
+        float fracDen = (minDist > 900) ? log(z2) : minDist * minDist;
+        
         if(count > 1) {
             float prevAvg = (avg - lastAdded) / (count - 1.0);
             avg = avg / count;
             
-            float frac = 1.0 + (log2(log(control.escapeRadius) / log(z2)));
+            float frac = 1.0 + (log2(log(control.escapeRadius) / fracDen));
             float mix = frac * avg + (1.0 - frac) * prevAvg;
         
             if(iter < maxIter) {
@@ -60,8 +84,9 @@ kernel void fractalShader
         }
     }
     else {
-        iter *= 2;
-        if(iter > 255) iter = 255;
+        iter = (minDist > 900) ? iter * 2 : int(minDist * minDist);
+        if(iter < 0) iter = 0; else if(iter > 255) iter = 255;
+        
         icolor = color[iter];
     }
     

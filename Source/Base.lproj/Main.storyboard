@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -134,20 +135,20 @@
                         <viewControllerLayoutGuide type="bottom" id="A4n-4y-7J1"/>
                     </layoutGuides>
                     <view key="view" contentMode="left" id="dWY-RQ-I3o">
-                        <rect key="frame" x="0.0" y="0.0" width="640" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="780" height="677"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LFJ-2t-2Yd">
-                                <rect key="frame" x="197" y="28" width="423" height="552"/>
+                                <rect key="frame" x="168" y="8" width="592" height="649"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help" translatesAutoresizingMaskIntoConstraints="NO" id="siP-gk-qmm">
-                                <rect key="frame" x="21" y="28" width="168" height="552"/>
+                                <rect key="frame" x="21" y="8" width="139" height="649"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="168" id="ftw-gU-oL7"/>
+                                    <constraint firstAttribute="width" constant="139" id="ftw-gU-oL7"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -164,8 +165,8 @@
                             <constraint firstItem="LFJ-2t-2Yd" firstAttribute="leading" secondItem="siP-gk-qmm" secondAttribute="trailing" constant="8" symbolic="YES" id="wzz-1p-Flo"/>
                         </constraints>
                     </view>
-                    <value key="contentSizeForViewInPopover" type="size" width="640" height="600"/>
-                    <size key="freeformSize" width="640" height="600"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="800" height="700"/>
+                    <size key="freeformSize" width="800" height="700"/>
                     <connections>
                         <outlet property="textView" destination="LFJ-2t-2Yd" id="tgm-Rk-fY8"/>
                     </connections>
@@ -176,6 +177,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="help" width="312" height="1004"/>
+        <image name="help" width="154" height="741"/>
     </resources>
 </document>

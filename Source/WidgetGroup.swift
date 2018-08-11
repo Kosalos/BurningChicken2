@@ -9,15 +9,15 @@ protocol WGDelegate {
     func wgAlterZoom(_ dz:Float)
 }
 
-enum CmdIdent { case saveLoad,loadNext,reset,help,coloring,chicken,shadow }
+enum CmdIdent { case saveLoad,loadNext,reset,help,coloring,chicken,shadow,pt0,pt1,pt2,lt0,lt1,lt2 }
 enum WgEntryKind { case singleFloat,dualFloat,dropDown,command,legend,line,string,color,move }
 
 let NONE:Int = -1
 let FontSZ:CGFloat = 20
-let RowHT:CGFloat = 30
-let GrphSZ:CGFloat = 20
-let TxtYoff:CGFloat = 0
-let GphYoff:CGFloat = 2
+let RowHT:CGFloat = 22
+let GrphSZ:CGFloat = 18
+let TxtYoff:CGFloat = -3
+let GphYoff:CGFloat = -1
 let Tab1:CGFloat = 7     // graph x1
 let Tab2:CGFloat = 24    // text after graph
 var py = CGFloat()
@@ -245,7 +245,7 @@ class WidgetGroup: UIView {
     override func draw(_ rect: CGRect) {
         context = UIGraphicsGetCurrentContext()
 
-        py = 10
+        py = 5
         for i in 0 ..< data.count { drawEntry(i) }
 
         UIColor.white.setStroke()

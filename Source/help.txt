@@ -21,7 +21,8 @@ The button command is performed by selecting the
 legend, then releasing your finger.
 
 Note: Pinch the image to control zoom.
-Note: Use 2 finger Pan to 'Move' the image at any time
+Note: Use 2 finger Pan to 'Move' the image at any time.
+Note: Double Tap image to toggle display of Control Panel.
 
 A. Reset
    Reset the image position, zoom and params.
@@ -66,4 +67,42 @@ M. Multiplier    are all params to 3DickUlus' algorithm. Check out shader code..
 
 N. Color R,G,B
    Affect the color balance.
+
+Visit: http://www.iquilezles.org/www/articles/ftrapsgeometric/ftrapsgeometric.htm
+to learn about Point and Line Orbit Traps
+
+O. Point Traps
+   Three Point Traps are offered.
+   Tap on the legend to toggle whether that Point Trap is active.
+   The companion "Point" widget controls the position of the Point Trap.
+
+P. Line Traps
+   Three Line Traps are offered.
+   Tap on the legend to toggle whether that Line Trap is active.
+   The companion "Point" widget controls the position of the Point Trap,
+   while "Slope" sets the line slope.
+
+Note: These orbit traps work great when using the traditional coloring method.
+Just move the "Point" around until you see it's effect.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

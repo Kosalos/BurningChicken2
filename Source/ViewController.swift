@@ -34,6 +34,7 @@ class ViewController: UIViewController, WGDelegate {
         view.addSubview(d2View)
         view.addSubview(wg)
 
+        setControlPointer(&control)
         initializeWidgetGroup()
         
         func loadShader(_ name:String) -> MTLComputePipelineState {
@@ -54,11 +55,7 @@ class ViewController: UIViewController, WGDelegate {
         colorBuffer = device.makeBuffer(length:jbSize, options:MTLResourceOptions.storageModeShared)
         colorBuffer.contents().copyMemory(from:colorMap, byteCount:jbSize)
         
-        let WgWidth:CGFloat = 120
-        wg.frame = CGRect(x:0, y:0, width:WgWidth, height:view.bounds.height)
-        d2View.frame = CGRect(x:WgWidth, y:0, width:view.bounds.width-WgWidth, height:view.bounds.height)
-        
-        setImageViewResolutionAndThreadGroups()
+        layoutViews()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -70,6 +67,15 @@ class ViewController: UIViewController, WGDelegate {
         control.coloringFlag = 1
         control.chickenFlag = 0
         wgCommand(.reset)
+    }
+    
+    func layoutViews() {
+        let WgWidth:CGFloat = wg.isHidden ? 0 : 120
+        if !wg.isHidden { wg.frame = CGRect(x:0, y:0, width:WgWidth, height:view.bounds.height) }
+        d2View.frame = CGRect(x:WgWidth, y:0, width:view.bounds.width-WgWidth, height:view.bounds.height)
+        
+        setImageViewResolutionAndThreadGroups()
+        d2View.initialize(texture1)
     }
     
     //MARK: -
@@ -125,13 +131,31 @@ class ViewController: UIViewController, WGDelegate {
         wg.addSingleFloat(&control.R,0,1,0.08, "Color R")
         wg.addSingleFloat(&control.G,0,1,0.08, "Color G")
         wg.addSingleFloat(&control.B,0,1,0.08, "Color B")
+        
+        // ------------------------------------
+        func pointTrapGroup(_ index:Int, _ cmd:CmdIdent) {
+            wg.addLine()
+            wg.addColor(10 + index,Float(RowHT)*2+3)
+            wg.addCommand(String(format:"PTrap #%d",index+1),cmd)
+            wg.addDualFloat(PTrapX(Int32(index)),PTrapY(Int32(index)),-10,10,1, "Point")
+        }
+
+        func lineTrapGroup(_ index:Int, _ cmd:CmdIdent) {
+            wg.addLine()
+            wg.addColor(13 + index,Float(RowHT)*3+3)
+            wg.addCommand(String(format:"LTrap #%d",index+1),cmd)
+            wg.addDualFloat(LTrapX(Int32(index)),LTrapY(Int32(index)),-10,10,1, "Point")
+            wg.addSingleFloat(LTrapS(Int32(index)),-10,10,1,"Slope")
+        }
+        
+        pointTrapGroup(0,.pt0)
+        pointTrapGroup(1,.pt1)
+        pointTrapGroup(2,.pt2)
+
+        lineTrapGroup(0,.lt0)
+        lineTrapGroup(1,.lt1)
+        lineTrapGroup(2,.lt2)
         wg.addLine()
-        wg.addLegend(" ")
-        wg.addLegend("2 Fingers")
-        wg.addLegend("to Pan")
-        wg.addLegend(" ")
-        wg.addLegend("Pinch")
-        wg.addLegend("to Zoom")
     }
     
     //MARK: -
@@ -238,6 +262,31 @@ class ViewController: UIViewController, WGDelegate {
             let ss = SaveLoadViewController()
             ss.loadNext()
             updateImage()
+            
+        case .pt0 :
+            togglePointTrap(0)
+            wg.setNeedsDisplay()
+            updateImage()
+        case .pt1 :
+            togglePointTrap(1)
+            wg.setNeedsDisplay()
+            updateImage()
+        case .pt2 :
+            togglePointTrap(2)
+            wg.setNeedsDisplay()
+            updateImage()
+        case .lt0 :
+            toggleLineTrap(0)
+            wg.setNeedsDisplay()
+            updateImage()
+        case .lt1 :
+            toggleLineTrap(1)
+            wg.setNeedsDisplay()
+            updateImage()
+        case .lt2 :
+            toggleLineTrap(2)
+            wg.setNeedsDisplay()
+            updateImage()
         }
     }
     
@@ -251,6 +300,17 @@ class ViewController: UIViewController, WGDelegate {
         case 1  : return control.chickenFlag > 0 ? c2 : c1
         case 2  : return shadowFlag ? c2 : c1
         case 3  : return control.coloringFlag > 0 ? c2 : c1
+            
+            //        int  getPTrapActive(int index);
+            //        int  getLTrapActive(int index);
+
+            
+        case 10 : return getPTrapActive(0) > 0 ? c2 : c1
+        case 11 : return getPTrapActive(1) > 0 ? c2 : c1
+        case 12 : return getPTrapActive(2) > 0 ? c2 : c1
+        case 13 : return getLTrapActive(0) > 0 ? c2 : c1
+        case 14 : return getLTrapActive(1) > 0 ? c2 : c1
+        case 15 : return getLTrapActive(2) > 0 ? c2 : c1
         default : return .white
         }
     }

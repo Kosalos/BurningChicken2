@@ -49,7 +49,16 @@ class MetalTextureView: MTKView,MTKViewDelegate {
             
             let pin = UIPinchGestureRecognizer(target: self, action: #selector(self.handlePin(_:)))
             addGestureRecognizer(pin)
+            
+            let tap2 = UITapGestureRecognizer(target: self, action: #selector(self.handleTap2(_:)))
+            tap2.numberOfTapsRequired = 2
+            addGestureRecognizer(tap2)
         }
+    }
+    
+    @objc func handleTap2(_ sender: UITapGestureRecognizer) {
+        vc.wg.isHidden = !vc.wg.isHidden
+        vc.layoutViews()
     }
 
     @IBAction func handlePan(_ sender: UIPanGestureRecognizer) {
