@@ -6,7 +6,18 @@
 
 using namespace metal;
 
-float2 complexMul(float2 v1, float2 v2) { return float2(v1.x * v2.x - v1.y * v2.y, v1.x * v2.y + v1.y * v2.x); }
+//float2 complexMul(float2 v1, float2 v2) { return float2(v1.x * v2.x - v1.y * v2.y, v1.x * v2.y + v1.y * v2.x); }
+
+float2 complexPower(float2 value, float power) {
+    float rr = value.x * value.x + value.y * value.y; // radius squared
+    if(rr == 0) return 0.0001;
+    
+    float p1 = pow(rr, power / 2);
+    float arg = atan2(value.y, value.x);
+    float2 p2 = float2( cos(power * arg), sin(power * arg));
+    return p1 * p2;
+}
+
 
 kernel void fractalShader
 (
@@ -25,13 +36,14 @@ kernel void fractalShader
     float avg = 0;
     float lastAdded = 0;
     float count = 0;
-    float2 z = float2();
+    float2 z = float2();//0.000001,0.000001);
     float z2 = 0;
     float minDist = 999;
 
     for(iter = 0;iter < maxIter;++iter) {
-        z = complexMul(z,z) + c;
-        
+//        z = complexMul(z,z) + c;
+        z = complexPower(z,control.power) + c;
+
         if(control.coloringFlag && (iter >= skip)) {
             count += 1;
             lastAdded = 0.5 + 0.5 * sin(control.stripeDensity * atan2(z.y, z.x));

@@ -23,6 +23,7 @@ legend, then releasing your finger.
 Note: Pinch the image to control zoom.
 Note: Use 2 finger Pan to 'Move' the image at any time.
 Note: Double Tap image to toggle display of Control Panel.
+Note: Swipe control panel up/down to move focus.
 
 A. Reset
    Reset the image position, zoom and params.
@@ -35,6 +36,10 @@ C. Load Next
 
 D. Help
    This dialog.
+
+Power:  Set exponent for complex squaring function in Mandelbrot algorithm.
+    <Reset> puts it back to the standard value of 2,
+    but other values produce interesting results.
 
 E. maxIter
    Specify the number of interations the shader uses.

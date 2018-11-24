@@ -35,7 +35,8 @@ typedef struct {
     PointOrbitTrap pTrap[3];
     LineOrbitTrap lTrap[3];
     
-    float future[6];
+    float power;
+    float future[5];
 } Control;
 
 #ifndef __METAL_VERSION__

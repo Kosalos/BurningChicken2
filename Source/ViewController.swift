@@ -56,6 +56,14 @@ class ViewController: UIViewController, WGDelegate {
         colorBuffer.contents().copyMemory(from:colorMap, byteCount:jbSize)
         
         layoutViews()
+        
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(self.handleGesture(gesture:)))
+        swipeUp.direction = .up
+        self.view.addGestureRecognizer(swipeUp)
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.handleGesture(gesture:)))
+        swipeDown.direction = .down
+        self.view.addGestureRecognizer(swipeDown)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -67,6 +75,14 @@ class ViewController: UIViewController, WGDelegate {
         control.coloringFlag = 1
         control.chickenFlag = 0
         wgCommand(.reset)
+    }
+    
+    @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+        switch gesture.direction {
+        case .up : wg.moveFocus(-1)
+        case .down : wg.moveFocus(+1)
+        default : break
+        }
     }
     
     func layoutViews() {
@@ -114,6 +130,7 @@ class ViewController: UIViewController, WGDelegate {
         wg.addCommand("Load Next",.loadNext)
         wg.addCommand("Help",.help)
         wg.addLine()
+        wg.addSingleFloat(&control.power,0.5,5,0.01, "Power")
         wg.addSingleFloat(&control.maxIter,40,200,30,"maxIter")
         wg.addSingleFloat(&control.contrast,0.1,5,0.3, "Contrast")
         wg.addSingleFloat(&control.skip,1,100,2,"Skip")
@@ -229,6 +246,7 @@ class ViewController: UIViewController, WGDelegate {
         case .help : performSegue(withIdentifier: "helpSegue", sender: self)
             
         case .reset :
+            control.power = 2
             control.xmin = -2
             control.xmax = 1
             control.ymin = -1.5
