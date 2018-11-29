@@ -74,6 +74,8 @@ class ViewController: UIViewController, WGDelegate {
         Timer.scheduledTimer(withTimeInterval:0.01, repeats:true) { timer in self.timerHandler() }
         control.coloringFlag = 1
         control.chickenFlag = 0
+        control.foamFlag = 0
+        
         wgCommand(.reset)
     }
     
@@ -136,6 +138,12 @@ class ViewController: UIViewController, WGDelegate {
         wg.addSingleFloat(&control.skip,1,100,2,"Skip")
         wg.addLine()
         wg.addColor(1,Float(RowHT)+3);  wg.addCommand("Chicken",.chicken)
+
+        wg.addLine()
+        wg.addColor(4,Float(RowHT)+3);  wg.addCommand("Foam",.foam)
+        wg.addSingleFloat(&control.foamQ,-1,2,0.01,"foamQ")
+        wg.addSingleFloat(&control.foamW,-1,2,0.01,"foamW")
+
         wg.addLine()
         wg.addColor(2,Float(RowHT)+3);  wg.addCommand("Shadow",.shadow)
         
@@ -261,6 +269,9 @@ class ViewController: UIViewController, WGDelegate {
             control.maxIter = 50
             control.contrast = 1
             
+            control.foamQ = -0.5
+            control.foamW = 0.2
+            
             updateImage()
 
         case .coloring :
@@ -269,8 +280,14 @@ class ViewController: UIViewController, WGDelegate {
             
         case .chicken :
             control.chickenFlag = control.chickenFlag == 0 ? 1 : 0
+            if control.chickenFlag != 0 { control.foamFlag = 0 }
             wgCommand(.reset)
-            
+
+        case .foam :
+            control.foamFlag = control.foamFlag == 0 ? 1 : 0
+            if control.foamFlag != 0 { control.chickenFlag = 0 }
+            wgCommand(.reset)
+
         case .shadow :
             shadowFlag = !shadowFlag
             d2View.initialize(shadowFlag ? texture2 : texture1)
@@ -318,11 +335,8 @@ class ViewController: UIViewController, WGDelegate {
         case 1  : return control.chickenFlag > 0 ? c2 : c1
         case 2  : return shadowFlag ? c2 : c1
         case 3  : return control.coloringFlag > 0 ? c2 : c1
-            
-            //        int  getPTrapActive(int index);
-            //        int  getLTrapActive(int index);
+        case 4  : return control.foamFlag > 0 ? c2 : c1
 
-            
         case 10 : return getPTrapActive(0) > 0 ? c2 : c1
         case 11 : return getPTrapActive(1) > 0 ? c2 : c1
         case 12 : return getPTrapActive(2) > 0 ? c2 : c1
@@ -412,12 +426,12 @@ func drawText(_ x:CGFloat, _ y:CGFloat, _ color:UIColor, _ sz:CGFloat, _ str:Str
         let font = UIFont.init(name: "Helvetica", size:sz)!
         
         textFontAttributes = [
-            NSAttributedStringKey.font: font,
-            NSAttributedStringKey.foregroundColor: color,
-            NSAttributedStringKey.paragraphStyle: paraStyle,
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: color,
+            NSAttributedString.Key.paragraphStyle: paraStyle,
         ]
     }
     
-    str.draw(in: CGRect(x:x, y:y, width:800, height:100), withAttributes: textFontAttributes as? [NSAttributedStringKey : Any])
+    str.draw(in: CGRect(x:x, y:y, width:800, height:100), withAttributes: textFontAttributes as? [NSAttributedString.Key : Any])
 }
 

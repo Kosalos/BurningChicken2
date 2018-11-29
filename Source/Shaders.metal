@@ -1,12 +1,11 @@
 // for info on Point and Line orbit traps visit:
 // http://www.iquilezles.org/www/articles/ftrapsgeometric/ftrapsgeometric.htm
+// foam style: https://fractalforums.org/programming/11/mandelbrot-foam/2360
 
 #include <metal_stdlib>
 #import "ShaderTypes.h"
 
 using namespace metal;
-
-//float2 complexMul(float2 v1, float2 v2) { return float2(v1.x * v2.x - v1.y * v2.y, v1.x * v2.y + v1.y * v2.x); }
 
 float2 complexPower(float2 value, float power) {
     float rr = value.x * value.x + value.y * value.y; // radius squared
@@ -18,6 +17,18 @@ float2 complexPower(float2 value, float power) {
     return p1 * p2;
 }
 
+float2 complexConjugate(float2 v) { return float2(v.x,-v.y); }
+float2 complexAdd(float2 v1, float2 v2) { return float2(v1.x + v2.x, v1.y + v2.y); }
+float2 complexMul(float2 v1, float2 v2) { return float2(v1.x * v2.x - v1.y * v2.y, v1.x * v2.y + v1.y * v2.x); }
+float2 csqr(float2 z) { return float2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y); }
+
+float2 complexDiv(float2 v1, float2 v2) {
+    float rr = v2.x * v2.x + v2.y * v2.y; // radius squared
+    float2 con = complexConjugate(v2);
+    
+    float2 cn = float2(con.x / rr, con.y / rr);
+    return complexMul(v1, cn);
+}
 
 kernel void fractalShader
 (
@@ -36,14 +47,27 @@ kernel void fractalShader
     float avg = 0;
     float lastAdded = 0;
     float count = 0;
-    float2 z = float2();//0.000001,0.000001);
+    float2 z = float2(0.000001,0.000001);
     float z2 = 0;
     float minDist = 999;
-
+    float2 q,w;
+    
+    if(control.foamFlag) {
+        z = float2(1/control.power,0);
+        q = float2(control.foamQ, 0);
+        w = float2(control.foamW, 0);
+    }
+    
     for(iter = 0;iter < maxIter;++iter) {
-//        z = complexMul(z,z) + c;
-        z = complexPower(z,control.power) + c;
-
+        
+        if(control.foamFlag) {
+            w = complexDiv( complexMul(q,w),z);
+            z = complexAdd( complexAdd( csqr(z), csqr(w)),c);
+        }
+        else {
+            z = complexPower(z,control.power) + c;
+        }
+        
         if(control.coloringFlag && (iter >= skip)) {
             count += 1;
             lastAdded = 0.5 + 0.5 * sin(control.stripeDensity * atan2(z.y, z.x));
@@ -97,6 +121,8 @@ kernel void fractalShader
     }
     else {
         iter = (minDist > 900) ? iter * 2 : int(minDist * minDist);
+        if(control.foamFlag) iter = (iter - 10) * 3;
+        
         if(iter < 0) iter = 0; else if(iter > 255) iter = 255;
         
         icolor = color[iter];

@@ -37,27 +37,30 @@ C. Load Next
 D. Help
    This dialog.
 
-Power:  Set exponent for complex squaring function in Mandelbrot algorithm.
+E. Power:  Set exponent for complex squaring function in Mandelbrot algorithm.
     <Reset> puts it back to the standard value of 2,
     but other values produce interesting results.
 
-E. maxIter
+F. maxIter
    Specify the number of interations the shader uses.
 
-F. Contrast
+G. Contrast
    Adjust the RGB deviations from midpoint.
 
-G. Skip
+H. Skip
    Number of cycles before each pixel counts as 'visible'
 
-H. Chicken
-   Render the normal Mandelbrot set, or the slightly
-   altered code to produce the Burning Chicken fractal.
+I. Chicken
+   Render altered code to produce the Burning Chicken fractal.
 
-I. Shadow
+J. Foam
+   Render altered code to produce the Foam fractal.
+   Companion widgets foamQ amd foamW control the effect.
+
+K. Shadow
    Toggle whether shadowing effect is added.
 
-J. Coloring
+L. Coloring
    Toggle color method: traditional color palette lookup,
    or average Coloring algorithm.
 
@@ -66,22 +69,22 @@ J. Coloring
    I copied the algorithm onto this app to do some
    experimentation.
 
-K. Stripe Density
-L. Escape Radius
-M. Multiplier    are all params to 3DickUlus' algorithm. Check out shader code..
+M. Stripe Density
+N. Escape Radius
+O. Multiplier    are all params to 3DickUlus' algorithm. Check out shader code..
 
-N. Color R,G,B
+P. Color R,G,B
    Affect the color balance.
 
 Visit: http://www.iquilezles.org/www/articles/ftrapsgeometric/ftrapsgeometric.htm
 to learn about Point and Line Orbit Traps
 
-O. Point Traps
+Q. Point Traps
    Three Point Traps are offered.
    Tap on the legend to toggle whether that Point Trap is active.
    The companion "Point" widget controls the position of the Point Trap.
 
-P. Line Traps
+R. Line Traps
    Three Line Traps are offered.
    Tap on the legend to toggle whether that Line Trap is active.
    The companion "Point" widget controls the position of the Point Trap,

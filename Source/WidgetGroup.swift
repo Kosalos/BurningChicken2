@@ -9,7 +9,7 @@ protocol WGDelegate {
     func wgAlterZoom(_ dz:Float)
 }
 
-enum CmdIdent { case saveLoad,loadNext,reset,help,coloring,chicken,shadow,pt0,pt1,pt2,lt0,lt1,lt2 }
+enum CmdIdent { case saveLoad,loadNext,reset,help,coloring,chicken,shadow,pt0,pt1,pt2,lt0,lt1,lt2,foam }
 enum WgEntryKind { case singleFloat,dualFloat,dropDown,command,legend,line,string,color,move }
 
 let NONE:Int = -1

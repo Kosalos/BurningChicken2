@@ -36,7 +36,11 @@ typedef struct {
     LineOrbitTrap lTrap[3];
     
     float power;
-    float future[5];
+    
+    int foamFlag;       // https://fractalforums.org/programming/11/mandelbrot-foam/2360
+    float foamQ;
+    float foamW;
+    float future[2];
 } Control;
 
 #ifndef __METAL_VERSION__
