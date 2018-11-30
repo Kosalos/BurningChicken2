@@ -15,6 +15,9 @@ It is very easy and efficient to develop with, \
 and makes good use of little space on the screen. \
 Hope you like it!
 
+Added the Foam fractal algorithm, which has a beauty of its own.. \
+visit: https://fractalforums.org/programming/11/mandelbrot-foam/2360
+
 ---------------------------------------\
 So much to learn!\
 Please visit: http://www.iquilezles.org/www/articles/ftrapsgeometric/ftrapsgeometric.htm \
