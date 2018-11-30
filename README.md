@@ -24,3 +24,5 @@ I added three Point and Line Orbit Traps to the Control Panel. \
 It's a great effect!
 
 ![Screenshot](screenshot.png)
+![Screenshot](screenshot2.png)
+
